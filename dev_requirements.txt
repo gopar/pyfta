@@ -1,0 +1,10 @@
+-r requirements.txt
+# Libraries that are only used in dev
+coverage
+flake8
+flake8_docstrings
+
+mypy
+
+
+
