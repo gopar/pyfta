@@ -2,6 +2,7 @@ import abc
 import random
 from string import ascii_letters
 from typing import Any
+from typing import List
 
 
 class RandomBase(abc.ABC):
@@ -27,15 +28,13 @@ class RandomString(RandomBase):
 class RandomInt(RandomBase):
     SIGNATURE = int
 
-    def __init__(self, lower_limit: int=0, upper_limit: int=100, base: int=10) -> None:
+    def __init__(self, lower_limit: int=0, upper_limit: int=100) -> None:
         self.lower = lower_limit
         self.upper = upper_limit
-        self.base = 10
 
     def generate(self) -> int:
         number = random.randint(self.lower, self.upper)
-        # Seems kinda dumb to do this in order to get the correct number from given base
-        return int(str(number), self.base)
+        return number
 
 
 class RandomFloat(RandomBase):
@@ -71,3 +70,17 @@ class RandomGenerator:
             bool: RandomBool
         }
         return data_types[data_type]().generate()
+
+
+class RandomList(RandomBase):
+    def __init__(self, how_many_to_create: int, allowed_types: List=None) -> None:
+        self.how_many_to_create = how_many_to_create
+        self.allowed_types = allowed_types or [int, str, float, bool]
+
+    def generate(self) -> Any:
+        values = []
+        for _ in range(self.how_many_to_create):
+            data_type = random.choice(self.allowed_types)
+            value = RandomGenerator.from_data_type(data_type)
+            values.append(value)
+        return values
