@@ -14,21 +14,27 @@ class RandomBase(abc.ABC):
 class RandomString(RandomBase):
     SIGNATURE = str
 
-    def __init__(self, chars: str=ascii_letters, prefix: str='', suffix: str='', length: int=10) -> None:
+    def __init__(
+        self,
+        chars: str = ascii_letters,
+        prefix: str = "",
+        suffix: str = "",
+        length: int = 10,
+    ) -> None:
         self.chars = chars
         self.prefix = prefix
         self.suffix = suffix
         self.length = length
 
     def generate(self) -> str:
-        string = ''.join(random.choices(ascii_letters, k=self.length))
+        string = "".join(random.choices(ascii_letters, k=self.length))
         return self.prefix + string + self.suffix
 
 
 class RandomInt(RandomBase):
     SIGNATURE = int
 
-    def __init__(self, lower_limit: int=0, upper_limit: int=100) -> None:
+    def __init__(self, lower_limit: int = 0, upper_limit: int = 100) -> None:
         self.lower = lower_limit
         self.upper = upper_limit
 
@@ -40,7 +46,7 @@ class RandomInt(RandomBase):
 class RandomFloat(RandomBase):
     SIGNATURE = float
 
-    def __init__(self, lower_limit: int=0, upper_limit: int=99) -> None:
+    def __init__(self, lower_limit: int = 0, upper_limit: int = 99) -> None:
         self.lower = lower_limit
         self.upper = upper_limit
 
@@ -67,13 +73,13 @@ class RandomGenerator:
             int: RandomInt,
             str: RandomString,
             float: RandomFloat,
-            bool: RandomBool
+            bool: RandomBool,
         }
         return data_types[data_type]().generate()
 
 
 class RandomList(RandomBase):
-    def __init__(self, how_many_to_create: int, allowed_types: List=None) -> None:
+    def __init__(self, how_many_to_create: int, allowed_types: List = None) -> None:
         self.how_many_to_create = how_many_to_create
         self.allowed_types = allowed_types or [int, str, float, bool]
 

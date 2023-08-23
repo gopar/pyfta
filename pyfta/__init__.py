@@ -1,2 +1,2 @@
-from .randgen import RandomGenerator
 from .pyfta import Pyfta
+from .randgen import RandomGenerator
