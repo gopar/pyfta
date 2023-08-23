@@ -74,6 +74,3 @@ def test_multiple_classes():
             model = Hello
 
     hw = HelloFactory()
-    import pdb
-
-    pdb.set_trace()
